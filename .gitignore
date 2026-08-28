@@ -1,0 +1,6 @@
+__pycache__/
+_diagrams_tmp_lecture5/
+_diagrams_tmp_lecture5_pdf/
+*.pyc
+.DS_Store
+~$*
