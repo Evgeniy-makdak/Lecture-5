@@ -180,6 +180,7 @@ def pretty_math(text):
     t = re.sub(r"\bDelta\s+n\b", "Δn", t)
     t = re.sub(r"\bDelta\b", "Δ", t)
     t = re.sub(r"\btheta(\d)\b", lambda m: "θ" + _to_unicode_sup(m.group(1)), t)
+    t = re.sub(r"\btheta\b", "θ", t, flags=re.I)
     t = re.sub(r"см2\b", "см²", t)
     t = re.sub(r"мм2\b", "мм²", t)
     t = re.sub(r"/см2\b", "/см²", t)
@@ -199,6 +200,8 @@ def _pil_safe(text):
     t = str(text)
     t = re.sub(r"\blambda\b", "λ", t, flags=re.I)
     t = re.sub(r"\bpi\b", "π", t, flags=re.I)
+    t = re.sub(r"\btheta(\d)\b", lambda m: "θ" + _to_unicode_sup(m.group(1)), t)
+    t = re.sub(r"\btheta\b", "θ", t, flags=re.I)
     t = re.sub(r"см2\b", "см²", t)
     t = re.sub(r"/см2\b", "/см²", t)
     t = re.sub(r"10\^(-?\d+)", lambda m: "10" + _to_unicode_sup(m.group(1)), t)
@@ -226,6 +229,7 @@ def pdf_sub(text):
     t = re.sub(r"\bDelta\s+n\b", "Δn", t)
     t = re.sub(r"\bDelta\b", "Δ", t)
     t = re.sub(r"\btheta(\d)\b", r"θ<sub>\1</sub>", t)
+    t = re.sub(r"\btheta\b", "θ", t, flags=re.I)
     t = re.sub(r"см2\b", "см<sup>2</sup>", t)
     t = re.sub(r"мм2\b", "мм<sup>2</sup>", t)
     t = re.sub(r"/см2\b", "/см<sup>2</sup>", t)
@@ -319,11 +323,13 @@ def draw_snell_lens_pil():
     _draw_text(d, (358, 188), "фокус", fill="#c62828", font=fs)
 
     x = 12
-    _draw_text(d, (x, 355), "n1 sin", fill="#333", font=fs)
-    x += _tw(d, "n1 sin", fs)
+    _draw_text(d, (x, 355), "n1 sin ", fill="#333", font=fs)
+    x += _tw(d, "n1 sin ", fs)
+    x = _draw_greek(d, x, 355, "θ", fs, "#333")
     x = _draw_sup(d, x, 355, "", "1", fs, "#333")
-    _draw_text(d, (x, 355), " = n2 sin", fill="#333", font=fs)
-    x += _tw(d, " = n2 sin", fs)
+    _draw_text(d, (x, 355), " = n2 sin ", fill="#333", font=fs)
+    x += _tw(d, " = n2 sin ", fs)
+    x = _draw_greek(d, x, 355, "θ", fs, "#333")
     x = _draw_sup(d, x, 355, "", "2", fs, "#333")
     _draw_text(d, (x + 8, 355), "  |  n = c / v", fill="#666", font=fs)
     return img
@@ -682,7 +688,7 @@ def build_pptx():
         f.fore_color.rgb = RGBColor(0x1A, 0x1A, 0x2E)
 
     def _font_for(tx):
-        if any(ch in tx for ch in "νλτωħΔπ"):
+        if any(ch in tx for ch in "νλτωθħΔπ"):
             return "Cambria Math"
         return "Calibri"
 
