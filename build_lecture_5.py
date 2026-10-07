@@ -28,9 +28,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-PPTX_PATH = os.path.join(BASE, "Лекция_5_Геометрическая_оптика.pptx")
+PPTX_PATH = os.path.join(BASE, "Лекция_5_Формирование_лазерного_пятна.pptx")
 PDF_PATH = os.path.join(BASE, "Лекция_5_Раскадровка_для_лектора.pdf")
-DOCX_PATH = os.path.join(BASE, "Лекция_5_Геометрическая оптика.docx")
+DOCX_PATH = os.path.join(BASE, "Лекция_5_Формирование_лазерного_пятна.docx")
 
 LECTURE_TITLE_SHORT = "ФОРМИРОВАНИЕ ЛАЗЕРНОГО ПЯТНА"
 LECTURE_TITLE_FULL = (
